@@ -14,7 +14,7 @@ archivo_csv="materiales.csv"
 while IFS=',' read -r categoria fabricante material enlace; do
   if [[ "$categoria" != "Categoría" ]]; then
     mkdir -p "$categoria"
-    wget -P "$categoria" $(echo "$enlace" | sed 's/%0D//')
+    wget -O "$categoria/$material.yml" "$(echo "$enlace" | sed 's/%0D//')"
   fi
 done < "$archivo_csv" 
 
