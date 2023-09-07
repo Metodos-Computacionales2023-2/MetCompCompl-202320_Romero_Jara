@@ -1,0 +1,21 @@
+Escriba un script desde la línea de comandos de la terminal que lea este archivo y produzca un archivo
+materiales.txt con una única columna: los nombres de cada material.
+
+awk -F ',' 'NR>1{print $3}' indices_refraccion.csv > materiales.txt
+
+Escriba un script desde la línea de comandos de la terminal que lea este archivo, descargue los archivos .yml
+asociados a cada material (el enlace en la cuarta columna) y los guarde por carpetas acordes a las categorías.
+
+while IFS=',' read -r categoria fabricante material enlace; do    mkdir -p "$Categoria";      wget -P $Categoria $Enlace;   
+#!/bin/bash
+
+archivo_csv="materiales.csv"
+
+while IFS=',' read -r categoria fabricante material enlace; do
+  if [[ "$categoria" != "Categoría" ]]; then
+    mkdir -p "$categoria"
+    wget -P "$categoria" $(echo "$enlace" | sed 's/%0D//')
+  fi
+done < "$archivo_csv" 
+
+echo "Descarga completada."
